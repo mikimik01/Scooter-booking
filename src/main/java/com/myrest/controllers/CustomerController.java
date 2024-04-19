@@ -1,8 +1,9 @@
 package com.myrest.controllers;
 
 import com.myrest.entities.Customer;
-import com.myrest.repositories.CustomerRepository;
+import com.myrest.reps.CustomerRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.expression.ExpressionException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,12 @@ public class CustomerController {
     @GetMapping
     public List<Customer> getCustomers(){
         return customerRepository.findAll();
+    }
+    @GetMapping("{customerId}")
+    public Customer getCustomerWithId(@PathVariable("customerId") Integer id){
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ExpressionException("Customer not found!!!"));
+        return customer;
     }
 
     record NewCustomerRequest(
@@ -45,7 +52,8 @@ public class CustomerController {
 
     @PutMapping("{customerId}")
     public void updateCostumerName(@PathVariable("customerId") Integer id, @RequestBody NewCustomerRequest request){
-        Customer customer = customerRepository.findById(id).orElseThrow();
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ExpressionException("Customer not found!!!"));
         customer.setName(request.name);
         customer.setEmail(request.email);
         customer.setAge(request.age);

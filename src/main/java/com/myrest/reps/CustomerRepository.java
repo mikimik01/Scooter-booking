@@ -1,4 +1,4 @@
-package com.myrest.repositories;
+package com.myrest.reps;
 
 import com.myrest.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
