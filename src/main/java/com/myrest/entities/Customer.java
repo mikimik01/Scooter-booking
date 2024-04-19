@@ -1,4 +1,4 @@
-package com.myrest;
+package com.myrest.entities;
 
 import jakarta.persistence.*;
 

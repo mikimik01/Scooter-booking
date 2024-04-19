@@ -1,5 +1,6 @@
-package com.myrest;
+package com.myrest.repositories;
 
+import com.myrest.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepository
