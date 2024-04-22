@@ -7,7 +7,6 @@ import org.springframework.expression.ExpressionException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @SpringBootApplication
 @RestController
 @RequestMapping("api/v1/customers")
@@ -50,13 +49,5 @@ public class CustomerController {
         customerRepository.deleteById(id);
     }
 
-    @PutMapping("{customerId}")
-    public void updateCostumerName(@PathVariable("customerId") Integer id, @RequestBody NewCustomerRequest request){
-        Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new ExpressionException("Customer not found!!!"));
-        customer.setName(request.name);
-        customer.setEmail(request.email);
-        customer.setAge(request.age);
-        customerRepository.save(customer);
-    }
+
 }

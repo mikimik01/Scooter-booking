@@ -1,57 +1,67 @@
 package com.myrest.entities;
 
 import jakarta.persistence.*;
-
 import java.util.Objects;
 
 @Entity
 public class Comment {
     @Id
     @SequenceGenerator(
-            name = "comment_id_sequence",
-            sequenceName = "comment_id_sequence",
+            name = "customer_id_sequence",
+            sequenceName = "customer_id_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "comment_id_sequence"
+            generator = "customer_id_sequence"
     )
-    Integer id;
-    Integer uid;
-    String text;
+    private Long id;
 
-    public Comment(Integer id, Integer uid, String text) {
+    private Integer customerId;
+
+    private Integer scooterId;
+
+    private String commentValue;
+
+    public Comment() {}
+
+    public Comment(Long id, Integer customerId, Integer scooterId, String commentValue) {
         this.id = id;
-        this.uid = uid;
-        this.text = text;
+        this.customerId = customerId;
+        this.scooterId = scooterId;
+        this.commentValue = commentValue;
     }
 
-    public Comment(){
-
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getUid() {
-        return uid;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setCustomerId(Integer uId) {
+        this.customerId = uId;
     }
 
-    public String getText() {
-        return text;
+    public Integer getScooterId() {
+        return scooterId;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setScooterId(Integer sId) {
+        this.scooterId = sId;
+    }
+
+    public String getCommentValue() {
+        return commentValue;
+    }
+
+    public void setCommentValue(String commentValue) {
+        this.commentValue = commentValue;
     }
 
     @Override
@@ -59,20 +69,21 @@ public class Comment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Comment comment = (Comment) o;
-        return Objects.equals(id, comment.id) && Objects.equals(uid, comment.uid) && Objects.equals(text, comment.text);
+        return Objects.equals(id, comment.id) && Objects.equals(customerId, comment.customerId) && Objects.equals(scooterId, comment.scooterId) && Objects.equals(commentValue, comment.commentValue);
     }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, uid, text);
+        return Objects.hash(id, customerId, scooterId, commentValue);
     }
+
     @Override
     public String toString() {
         return "Comment{" +
                 "id=" + id +
-                ", uid=" + uid +
-                ", text='" + text + '\'' +
+                ", customerId=" + customerId +
+                ", scooterId=" + scooterId +
+                ", commentValue='" + commentValue + '\'' +
                 '}';
     }
-
-
 }
