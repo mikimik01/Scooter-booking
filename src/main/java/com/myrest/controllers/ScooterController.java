@@ -1,6 +1,8 @@
 package com.myrest.controllers;
 
 import com.myrest.entities.Scooter;
+import com.myrest.exceptions.CustomException;
+import com.myrest.exceptions.DoesNotExistException;
 import com.myrest.reps.ScooterRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.expression.ExpressionException;
@@ -25,7 +27,7 @@ public class ScooterController {
     @GetMapping("{scooterId}")
     public Scooter getScooterById(@PathVariable("scooterId") Integer id){
         Scooter scooter = scooterRepository.findById(id)
-                .orElseThrow(() -> new ExpressionException("Id of a scooter does not exist!!!"));
+                .orElseThrow(() -> new DoesNotExistException("Id of a scooter does not exist!!!"));
         return scooter;
     }
 
@@ -41,7 +43,7 @@ public class ScooterController {
     @PostMapping
     public void addScooter(@RequestBody NewScooterRequest request){
         Scooter scooter = new Scooter();
-        if (request.name==null) throw new ExpressionException("Name is not valid!!!");
+        if (request.name==null) throw new CustomException("Name is not valid!!!");
         scooter.setName(request.name);
         scooter.setDescription(request.description);
         scooterRepository.save(scooter);
@@ -50,7 +52,7 @@ public class ScooterController {
     @PostMapping("{scooterId}")
     public void addScooterDescriptionById(@PathVariable("scooterId") Integer id, @RequestBody NewDescriptionRequest request){
         Scooter scooter = scooterRepository.findById(id)
-                .orElseThrow(() -> new ExpressionException("Scooter not found!!!"));
+                .orElseThrow(() -> new DoesNotExistException("Scooter not found!!!"));
         scooter.setDescription(request.description);
         scooterRepository.save(scooter);
     }
@@ -58,7 +60,7 @@ public class ScooterController {
     @PatchMapping("{scooterId}")
     public void editScooterDescriptionById(@PathVariable("scooterId") Integer id, @RequestBody NewDescriptionRequest request){
         Scooter scooter = scooterRepository.findById(id)
-                .orElseThrow(() -> new ExpressionException("Scooter not found!!!"));
+                .orElseThrow(() -> new DoesNotExistException("Scooter not found!!!"));
         scooter.setDescription(request.description);
         scooterRepository.save(scooter);
     }
