@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface ReservationRepository
         extends JpaRepository<Reservation, Integer> {
     List<Reservation> findReservationByScooterId(Integer sId);
+    Optional<Reservation> findReservationByIdAndCustomerId(Integer reservationId, Integer customerId);
     Optional<List<Reservation>> findReservationByCustomerIdAndScooterId(Integer customerId, Integer scooterId);
     Optional<Reservation> findReservationByIdAndScooterId(Integer customerId, Integer scooterId);
 }

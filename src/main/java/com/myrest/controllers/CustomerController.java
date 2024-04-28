@@ -4,12 +4,9 @@ import com.myrest.entities.Customer;
 import com.myrest.exceptions.CustomException;
 import com.myrest.exceptions.DoesNotExistException;
 import com.myrest.reps.CustomerRepository;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.expression.ExpressionException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@SpringBootApplication
 @RestController
 @RequestMapping("api/v1/customers")
 public class CustomerController {

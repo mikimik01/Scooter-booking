@@ -26,10 +26,10 @@ public class ScooterCommentController {
     }
 
     @ModelAttribute
-    public void setAndValidateScooterId(@PathVariable("scooterId") Integer scooterId) {
-        this.scooterId = scooterId;
+    public void init(@PathVariable("scooterId") Integer scooterId) {
         scooterRepository.findById(scooterId)
                 .orElseThrow(() -> new DoesNotExistException("Scooter does not exist!!!"));
+        this.scooterId = scooterId;
     }
     record NewCommentRequest(
             Integer customerId,
