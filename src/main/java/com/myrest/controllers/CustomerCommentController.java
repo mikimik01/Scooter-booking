@@ -2,6 +2,7 @@ package com.myrest.controllers;
 
 import com.myrest.entities.Comment;
 import com.myrest.exceptions.DoesNotExistException;
+import com.myrest.logs.LogsHandler;
 import com.myrest.reps.CommentRepository;
 import com.myrest.reps.CustomerRepository;
 import org.springframework.web.bind.annotation.*;
