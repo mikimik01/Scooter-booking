@@ -1,6 +1,7 @@
 package com.myrest.controllers;
 
 import com.myrest.entities.Reservation;
+import com.myrest.exceptions.CustomException;
 import com.myrest.exceptions.DoesNotExistException;
 import com.myrest.reps.CustomerRepository;
 import com.myrest.reps.ReservationRepository;
@@ -34,13 +35,15 @@ public class TransferReservationController {
         customerRepository.findById(transferRequest.targetCustomerId).orElseThrow(() -> new DoesNotExistException("Customer does not exist!!!"));
 
         // Create null reservation object
-        Reservation res1 = null;
+        Reservation res1;
         Reservation res2 = null;
         Reservation res3 = null;
 
+        //check if reservation1 exest (it is required not optional
+        if (transferRequest.reservationId1 == null) throw new CustomException("Transfer not possible, reservation1 required!!!");
+
         //if reservation is passed through reqbody, check if it exist and belongs to origin customer
-        if (transferRequest.reservationId1 != null)
-            res1 = validateReservationTransferAndReturn(transferRequest.reservationId1, transferRequest.fromCustomerId);
+        res1 = validateReservationTransferAndReturn(transferRequest.reservationId1, transferRequest.fromCustomerId);
         if (transferRequest.reservationId2 != null)
             res2 = validateReservationTransferAndReturn(transferRequest.reservationId2, transferRequest.fromCustomerId);
         if (transferRequest.reservationId3 != null)

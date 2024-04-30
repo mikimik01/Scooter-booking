@@ -77,6 +77,28 @@ public class ReservationController {
         }
     }
 
+    //Put
+    @PostMapping("{reservationId}")
+    public void putScooterReservation(@PathVariable("reservationId")Integer reservationId, @RequestBody NewReservationRequest request){
+
+
+        List<Reservation> reservations = reservationRepository.findReservationByScooterId(scooterId);
+        
+        if(Reservation.isReservationStartAndEndValid(request.beginDate, request.endDate) &&
+                !(Reservation.checkIfResevationExistsInList(reservations, request.beginDate, request.endDate, null))) {
+            Reservation reservation = reservationRepository.findById(reservationId)
+                    .orElseThrow(() -> new DoesNotExistException("Reservation does not exist!!!"));
+            reservation.setBeginDate(request.beginDate);
+            reservation.setEndDate(request.endDate);
+            reservation.setCustomerId(request.customerId);
+            reservation.setScooterId(scooterId);
+            reservationRepository.save(reservation);
+        }else{
+            throw new ReservationNotPossibleException("Reservation is not possible for this date");
+        }
+    }
+
+
     //Patch
 
     @PatchMapping("{reservationId}")
